@@ -17,12 +17,12 @@ namespace EntityFrameworkBook
 
         static void Main(string[] args)
         {
-            // QueryContacts();
-              //QueryContactsLambda();
+             //QueryContacts();
+              QueryContactsLambda();
             //EntityCientQueryContacts();
             //QueryContactsObjectQuery2();
             // QueryContactsObjectQuery3();
-            QueryContactsObjectQuery();
+           // QueryContactsObjectQuery();
            // NativeSQL();
         }
 
@@ -65,9 +65,19 @@ namespace EntityFrameworkBook
             using (var context = new SampleEntities())
             {
 
+                //Seleccionar toda la entidad, propiedades, campos.
+                //var contacts = 
+                //    context.Contact.Where(c => c.FirstName == "Robert")
+                //.OrderBy((foo) => foo.LastName);
 
-                var contacts = context.Contact.Where(c => c.FirstName == "Robert")
-                .OrderBy((foo) => foo.LastName);
+                //Projection, seleccionar propiedades, campos especificos
+                var contacts =
+                  context.Contact
+                  .Where(c => c.FirstName == "Robert")
+                  .Select(c => new  {c.Title, c.LastName,c.FirstName })
+              .OrderBy((foo) => foo.LastName);
+
+
 
                 foreach (var contact in contacts)
                 {
@@ -113,19 +123,47 @@ namespace EntityFrameworkBook
             {
 
                 //Retornar un objetos, entidades enteras donde el nombre sea Robert
-                var contacts = from c in context.Contact
-                               where c.FirstName == "Robert"
-                               select c;
+                //var contacts = from c in context.Contact
+                //               where c.FirstName == "Robert"
+                //               select c;
+
+                //Projection, obtener propiedades o campos especificos
+                //var contacts = from c in context.Contact
+                //               where c.FirstName == "Robert"
+                //               select new { c.Title, c.FirstName, c.LastName };
 
 
+                //foreach (var contact in contacts)
+                //{
 
+                //    Console.WriteLine("{0} {1} {2}",
+                //    contact.Title.Trim(),
+                //    contact.FirstName.Trim(),
+                //    contact.LastName.Trim()
+                //    );
+                //}
+
+
+                //Projection, tipos anonimos
+                var contacts =
+    from c in context.Contact
+    where c.FirstName == "Robert"
+    let foo = new
+    {
+        ContactName = new { c.Title, c.LastName, c.FirstName },
+        c.Address
+    }
+    orderby foo.ContactName.LastName
+    select foo;
 
                 foreach (var contact in contacts)
                 {
-                    Console.WriteLine("{0} {1}",
-                    contact.FirstName.Trim(),
-                    contact.LastName);
+                    var name = contact.ContactName;
+                    Console.WriteLine("{0} {1} {2}: # Addresses {3}",
+                    name.Title.Trim(), name.FirstName.Trim(),
+                    name.LastName.Trim(), contact.Address.Count());
                 }
+
             }
             Console.Write("Press Enter...");
             Console.ReadLine();
