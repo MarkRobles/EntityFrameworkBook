@@ -18,11 +18,11 @@ namespace EntityFrameworkBook
         static void Main(string[] args)
         {
             // QueryContacts();
-              QueryContactsLambda();
+              //QueryContactsLambda();
             //EntityCientQueryContacts();
             //QueryContactsObjectQuery2();
             // QueryContactsObjectQuery3();
-            //QueryContactsObjectQuery();
+            QueryContactsObjectQuery();
            // NativeSQL();
         }
 
