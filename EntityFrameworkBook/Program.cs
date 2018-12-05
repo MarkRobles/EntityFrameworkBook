@@ -17,8 +17,8 @@ namespace EntityFrameworkBook
 
         static void Main(string[] args)
         {
-             //QueryContacts();
-              QueryContactsLambda();
+             QueryContacts();
+              //QueryContactsLambda();
             //EntityCientQueryContacts();
             //QueryContactsObjectQuery2();
             // QueryContactsObjectQuery3();
@@ -145,23 +145,94 @@ namespace EntityFrameworkBook
 
 
                 //Projection, tipos anonimos
+                //            var contacts =
+                //from c in context.Contact
+                //where c.FirstName == "Robert"
+                //let foo = new
+                //{
+                //    ContactName = new { c.Title, c.LastName, c.FirstName },
+                //    c.Address
+                //}
+                //orderby foo.ContactName.LastName
+                //select foo;
+
+                //            foreach (var contact in contacts)
+                //            {
+                //                var name = contact.ContactName;
+                //                Console.WriteLine("{0} {1} {2}: # Addresses {3}",
+                //                name.Title.Trim(), name.FirstName.Trim(),
+                //                name.LastName.Trim(), contact.Address.Count());
+                //            }
+
+
+                //Projecting into an EntityRef with LINQ to Entities
+                //var addresses = from a in context.Address
+                //                where a.CountryRegion == "UK"
+                //                select new { a, a.Contact };
+
+
+                //var addresses = from a in context.Address
+                //                where a.Contact.AddDate > new System.DateTime(2009,1,1)
+                //                orderby a.Contact.LastName
+                //                select new
+                //                {
+                //                   Address = a, a.Contact
+                //                };
+
+                ////Accessing the properties of an anonymous type
+                //foreach (var address in addresses)
+                //{
+                //    Console.WriteLine("{0} {1} {2}",
+                //    address.Contact.LastName, address.Address.Street1,
+                //    address.Address.City);
+                //}
+
+
+
+                //var contacts = from c in context.Contact
+                //               select new { c, Foos = c.Address};
+
+                //foreach (var contact in contacts)
+                //{
+                //    Console.WriteLine("{0}: Address Count {1} ",
+                //    contact.c.LastName.Trim(), contact.Foos.Count);
+                //    foreach (var foo in contact.Foos)
+                //    {
+                //        Console.WriteLine(" City= {0}", foo.City);
+                //    }
+                //}
+
+
+                //shaped results
+                //var contacts = from c in context.Contact
+                //               select new
+                //               {
+                //                   c.FirstName,
+                //                   c.LastName,
+                //                   StreetsCities = from a in c.Address
+                //                                   select new { a.Street1, a.City }
+                //               };
+
+                //foreach (var contact in contacts)
+                //{
+                //    Console.WriteLine("{0} {1} ",
+                //    contact.LastName.Trim(), contact.FirstName);
+                //    foreach (var foo in contact.StreetsCities)
+                //    {
+                //        Console.WriteLine("{0} {1}",foo.Street1 ,foo.City);
+                //    }
+                //}
+
+                //flatened results, turn the query, look more simple, but the contacts data are duplicated when they have multiple adresses
                 var contacts =
-    from c in context.Contact
-    where c.FirstName == "Robert"
-    let foo = new
-    {
-        ContactName = new { c.Title, c.LastName, c.FirstName },
-        c.Address
-    }
-    orderby foo.ContactName.LastName
-    select foo;
+    from a in context.Address
+    orderby a.Contact.LastName
+    select new { a.Contact.LastName, a.Contact.FirstName, a.Street1, a.City };
+
 
                 foreach (var contact in contacts)
                 {
-                    var name = contact.ContactName;
-                    Console.WriteLine("{0} {1} {2}: # Addresses {3}",
-                    name.Title.Trim(), name.FirstName.Trim(),
-                    name.LastName.Trim(), contact.Address.Count());
+                    Console.WriteLine("{0}{1}{2}{3}", contact.LastName, contact.FirstName, contact.Street1, contact.City);
                 }
 
             }
