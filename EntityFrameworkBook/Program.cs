@@ -17,7 +17,8 @@ namespace EntityFrameworkBook
 
         static void Main(string[] args)
         {
-             QueryContacts();
+            Grouping();
+           //  QueryContacts();
               //QueryContactsLambda();
             //EntityCientQueryContacts();
             //QueryContactsObjectQuery2();
@@ -345,7 +346,82 @@ namespace EntityFrameworkBook
 
 
             }
-            #endregion
+            
+
+
         }
+        #endregion
+
+        #region Agrupar
+        private static void Grouping()
+        {
+
+            using (var context = new SampleEntities())
+            {
+
+      
+                //var contacts = from c in context.Contact group c by c.Title into mygroup select mygroup;
+
+                //var contacts =
+                //from c in context.Contact
+                //group c by c.Title into MyGroup
+                //orderby MyGroup.Key
+                //select new { MyTitle = MyGroup.Key, MyGroup };
+
+                //Chaining Agregates
+                //var contacts =
+                //from c in context.Contact
+                //group c by c.Title into MyGroup
+                //orderby MyGroup.Key
+                //select new
+                //{
+                //    MyTitle = MyGroup.Key,
+                //    MyGroup,
+                //    Max = MyGroup.Max(c => c.AddDate),
+                //    Count = MyGroup.Count()
+                //};
+
+                //filtering on a group property
+                //var contacts =
+                //from c in context.Contact
+                //group c by c.Title into MyGroup
+                //where MyGroup.Count() > 150
+                //select new
+                //{
+                //    MyTitle = MyGroup.Key,
+                //    MyGroup,
+                //    Count = MyGroup.Count()
+                //};
+
+                var contacts =
+                from a in context.Address        
+                let c = new
+                {
+                    a.Contact.FirstName,
+                    a.Contact.LastName,
+                    a.CountryRegion
+                }
+                group c by c.CountryRegion into MyGroup
+                where (MyGroup.Count() > 150)
+                select MyGroup;
+
+                //Example 4 - 30.Filtering related data in a query using projections
+  var contactGraphs = from c in context.Contact
+ 
+
+                foreach (var contact in contacts)
+                {
+                  //  Console.WriteLine("{0} {1} {2} ", contact.., contact.MyGroup,contact.Count);
+                    
+                }
+
+                Console.Write("Press Enter...");
+                Console.ReadLine();
+            }
+
+           
+
+        }
+        #endregion
     }
 }
