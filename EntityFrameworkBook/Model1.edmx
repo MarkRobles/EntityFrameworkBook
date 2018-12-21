@@ -185,7 +185,7 @@ advertencia 6002: La tabla o vista 'ProgrammingEFDB1.dbo.vOfficeAddresses' no ti
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SampleEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="PEF" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Address" EntityType="Self.Address" />
           <EntitySet Name="Contact" EntityType="Self.Contact" />
           <EntitySet Name="vOfficeAddresses" EntityType="Self.vOfficeAddresses" />
@@ -234,7 +234,7 @@ advertencia 6002: La tabla o vista 'ProgrammingEFDB1.dbo.vOfficeAddresses' no ti
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SampleModelStoreContainer" CdmEntityContainer="SampleEntities">
+        <EntityContainerMapping StorageEntityContainer="SampleModelStoreContainer" CdmEntityContainer="PEF">
           <EntitySetMapping Name="Address">
             <EntityTypeMapping TypeName="SampleModel.Address">
               <MappingFragment StoreEntitySet="Address">

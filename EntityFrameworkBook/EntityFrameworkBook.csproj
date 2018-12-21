@@ -64,6 +64,9 @@
     <Compile Include="ContactsbyState_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityClient.cs" />
+    <Compile Include="EntitySQL.cs" />
+    <Compile Include="LINQ.cs" />
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -79,6 +82,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ObjectQuery.cs" />
+    <Compile Include="ObjectServices.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="vOfficeAddresses.cs">

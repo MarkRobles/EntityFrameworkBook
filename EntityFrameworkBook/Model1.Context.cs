@@ -15,10 +15,10 @@ namespace EntityFrameworkBook
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class SampleEntities : DbContext
+    public partial class PEF : DbContext
     {
-        public SampleEntities()
-            : base("name=SampleEntities")
+        public PEF()
+            : base("name=PEF")
         {
         }
     
