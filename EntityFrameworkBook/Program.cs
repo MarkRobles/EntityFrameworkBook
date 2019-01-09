@@ -23,7 +23,7 @@ namespace EntityFrameworkBook
             ObjectQuery objObjectQuery = new ObjectQuery();
             EntityClient objEntityClient = new EntityClient();
             ObjectServices objObjectServices = new ObjectServices();
-            EntitySQL objEntitySL = new EntitySQL();
+            EntitySQL objEntitySQL = new EntitySQL();
 
             //Ejemplos LINQ TO ENTITIES
             //objLinqToEntities.QueryContactsLambda();
@@ -40,13 +40,22 @@ namespace EntityFrameworkBook
 
 
             //Ejemplos Entity Client
-           objEntityClient.QueryContacts();
+            //objEntityClient.QueryContacts();
 
 
             //Ejemplos ObjectServices
             //objObjectServices.QueryContacts();
 
-
+            //Ejemplos EntitySQL
+            // objEntitySQL.QueryContacts();
+            //objEntitySQL.ProjectingObjects();
+            //objEntitySQL.ProjectingEntityReference();
+            // objEntitySQL.FilterSortAnEntityReference();
+            //   objEntitySQL.FilterNavigation();
+            //objEntitySQL.CountAdresses();
+            // objEntitySQL.MAX();
+            // objEntitySQL.JOIN();
+            objEntitySQL.ShapingData();
 
 
 
