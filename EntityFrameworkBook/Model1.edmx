@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SampleModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SampleModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="addressID" />
@@ -116,8 +116,7 @@ advertencia 6002: La tabla o vista 'ProgrammingEFDB1.dbo.vOfficeAddresses' no ti
             <End Role="Address" EntitySet="Address" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SampleModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -194,16 +193,16 @@ advertencia 6002: La tabla o vista 'ProgrammingEFDB1.dbo.vOfficeAddresses' no ti
             <End Role="Address" EntitySet="Address" />
           </AssociationSet>
           <FunctionImport Name="AddressCountForContact" ReturnType="Collection(SampleModel.AddressCountForContact_Result)">
-            <Parameter Name="contactID" Mode="In" Type="Int32" />
+          <Parameter Name="contactID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="AddressTypeCount" ReturnType="Collection(Int32)">
-            <Parameter Name="AddressType" Mode="In" Type="String" />
+          <Parameter Name="AddressType" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="ContactsbyState" ReturnType="Collection(SampleModel.ContactsbyState_Result)">
-            <Parameter Name="statecode" Mode="In" Type="String" />
+          <FunctionImport Name="GetContacsbyState" EntitySet="Contact" ReturnType="Collection(SampleModel.Contact)">
+          <Parameter Name="statecode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="DeleteContact">
-            <Parameter Name="contactid" Mode="In" Type="Int32" />
+          <Parameter Name="contactid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="InsertContact" ReturnType="Collection(Decimal)">
             <Parameter Name="FirstName" Mode="In" Type="String" />
@@ -262,6 +261,25 @@ advertencia 6002: La tabla o vista 'ProgrammingEFDB1.dbo.vOfficeAddresses' no ti
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
             </EntityTypeMapping>
+            <EntityTypeMapping TypeName="SampleModel.Contact">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="SampleModel.Store.InsertContact">
+                  <ScalarProperty Name="Title" ParameterName="Title" />
+                  <ScalarProperty Name="LastName" ParameterName="LastName" />
+                  <ScalarProperty Name="FirstName" ParameterName="FirstName" />
+                  <ResultBinding Name="ContactID" ColumnName="NewContactID" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="SampleModel.Store.UpdateContact">
+                  <ScalarProperty Name="Title" ParameterName="Title" Version="Current" />
+                  <ScalarProperty Name="LastName" ParameterName="LastName" Version="Current" />
+                  <ScalarProperty Name="FirstName" ParameterName="FirstName" Version="Current" />
+                  <ScalarProperty Name="ContactID" ParameterName="ContactID" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="SampleModel.Store.DeleteContact" >
+                  <ScalarProperty Name="ContactID" ParameterName="contactid" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="vOfficeAddresses">
             <EntityTypeMapping TypeName="SampleModel.vOfficeAddresses">
@@ -290,17 +308,7 @@ advertencia 6002: La tabla o vista 'ProgrammingEFDB1.dbo.vOfficeAddresses' no ti
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="AddressTypeCount" FunctionName="SampleModel.Store.AddressTypeCount" />
-          <FunctionImportMapping FunctionImportName="ContactsbyState" FunctionName="SampleModel.Store.ContactsbyState">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SampleModel.ContactsbyState_Result">
-                <ScalarProperty Name="ContactID" ColumnName="ContactID" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-              </ComplexTypeMapping>
-            </ResultMapping>
+          <FunctionImportMapping FunctionImportName="GetContacsbyState" FunctionName="SampleModel.Store.ContactsbyState">
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="DeleteContact" FunctionName="SampleModel.Store.DeleteContact" />
           <FunctionImportMapping FunctionImportName="InsertContact" FunctionName="SampleModel.Store.InsertContact" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -304,9 +305,9 @@ namespace EntityFrameworkBook
             {
                 var contacts = context.Contact.Include("Address")
                 .Where(c => c.FirstName == "Bobby").ToList();
-                var contact = contacts[3];
-                contact.FirstName = "Robert";
-                contact = contacts[4];
+                var contact = contacts[1];
+                contact.FirstName = "Marquitos";
+                contact = contacts[2];
                 var address = contact.Address.ToList()[0];
                 address.Street1 = "Two Main Street";
                 context.SaveChanges();
@@ -328,10 +329,11 @@ namespace EntityFrameworkBook
                 //  Example 6 - 3.Creating a new address in memory
                 var contact = context.Contact.Where(c => c.FirstName == "Robert").First();
                 var address = new Address();
-                address.Street1 = "One Main Street";
-                address.City = "Burlington";
-                address.StateProvince = "VT";
-                address.AddressType = "Business";
+                address.Street1 = "TRHEE Main Street";
+                address.City = "Colon";
+
+                address.StateProvince = "VH";
+                address.AddressType = "HOME";
                 address.ModifiedDate = DateTime.Now;
                 //join the new address to the contact
                 address.Contact = contact;
@@ -341,7 +343,28 @@ namespace EntityFrameworkBook
             Console.ReadLine();
         }
 
-    
+
+        public void GetContactsbyState()
+        {
+            using (PEF context = new PEF())
+            {
+                //   Example 7 - 5.Testing the function mapping
+                ObjectResult<Contact> results = context.GetContacsbyState("Washington");
+
+             List<Contact> ListaContactos =   context.GetContacsbyState("Washington").ToList();
+
+                 foreach (var contact in ListaContactos)
+                {
+                    Console.WriteLine("{0} {1} ", contact.FirstName, contact.LastName);
+
+                }
+            }
+
+            
+Console.Write("Press Enter...");
+            Console.ReadLine();
+        }
+
 
 
 

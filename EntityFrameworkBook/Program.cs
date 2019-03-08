@@ -32,7 +32,8 @@ namespace EntityFrameworkBook
             //objLinqToEntities.LinqToEnttiesInclude();
             // objLinqToEntities.UpdateContact();
             //objLinqToEntities.UpdateContacts();
-            objLinqToEntities.InsertAdress();
+            //objLinqToEntities.InsertAdress();
+            objLinqToEntities.GetContactsbyState();
 
             //Ejemplos ObjectQuery
             //objObjectQuery.QueryContacts();
@@ -67,12 +68,12 @@ namespace EntityFrameworkBook
 
         }
 
-      
- 
 
 
-       
 
-       
+
+
+
+
     }
 }

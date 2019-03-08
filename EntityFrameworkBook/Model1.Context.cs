@@ -49,13 +49,22 @@ namespace EntityFrameworkBook
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("AddressTypeCount", addressTypeParameter);
         }
     
-        public virtual ObjectResult<ContactsbyState_Result> ContactsbyState(string statecode)
+        public virtual ObjectResult<Contact> GetContacsbyState(string statecode)
         {
             var statecodeParameter = statecode != null ?
                 new ObjectParameter("statecode", statecode) :
                 new ObjectParameter("statecode", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ContactsbyState_Result>("ContactsbyState", statecodeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Contact>("GetContacsbyState", statecodeParameter);
+        }
+    
+        public virtual ObjectResult<Contact> GetContacsbyState(string statecode, MergeOption mergeOption)
+        {
+            var statecodeParameter = statecode != null ?
+                new ObjectParameter("statecode", statecode) :
+                new ObjectParameter("statecode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Contact>("GetContacsbyState", mergeOption, statecodeParameter);
         }
     
         public virtual int DeleteContact(Nullable<int> contactid)
