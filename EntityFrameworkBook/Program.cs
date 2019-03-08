@@ -30,7 +30,9 @@ namespace EntityFrameworkBook
             //objLinqToEntities.QueryContacts();
             //objLinqToEntities.Grouping();
             //objLinqToEntities.LinqToEnttiesInclude();
-
+            // objLinqToEntities.UpdateContact();
+            //objLinqToEntities.UpdateContacts();
+            objLinqToEntities.InsertAdress();
 
             //Ejemplos ObjectQuery
             //objObjectQuery.QueryContacts();
@@ -55,7 +57,7 @@ namespace EntityFrameworkBook
             //objEntitySQL.CountAdresses();
             // objEntitySQL.MAX();
             // objEntitySQL.JOIN();
-            objEntitySQL.ShapingData();
+            // objEntitySQL.ShapingData();
 
 
 

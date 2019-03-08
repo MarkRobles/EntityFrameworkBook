@@ -276,5 +276,75 @@ namespace EntityFrameworkBook
         }
         #endregion
 
+
+        #region Keeping Track of Entities
+        public void UpdateContact()
+        {
+
+           
+                using (PEF context = new PEF())
+                {
+                    var contact = context.Contact.First();
+                    contact.FirstName = "Julia";
+                    contact.ModifiedDate = DateTime.Now;
+                    context.SaveChanges();
+                }
+
+           
+            
+            Console.Write("Press Enter...");
+            Console.ReadLine();
+        }
+
+        public void UpdateContacts()
+        {
+
+
+            using (PEF context = new PEF())
+            {
+                var contacts = context.Contact.Include("Address")
+                .Where(c => c.FirstName == "Bobby").ToList();
+                var contact = contacts[3];
+                contact.FirstName = "Robert";
+                contact = contacts[4];
+                var address = contact.Address.ToList()[0];
+                address.Street1 = "Two Main Street";
+                context.SaveChanges();
+            }
+
+
+
+            Console.Write("Press Enter...");
+            Console.ReadLine();
+        }
+        #endregion
+
+
+        public void InsertAdress()
+        {
+            using (PEF context = new PEF())
+            {
+
+                //  Example 6 - 3.Creating a new address in memory
+                var contact = context.Contact.Where(c => c.FirstName == "Robert").First();
+                var address = new Address();
+                address.Street1 = "One Main Street";
+                address.City = "Burlington";
+                address.StateProvince = "VT";
+                address.AddressType = "Business";
+                address.ModifiedDate = DateTime.Now;
+                //join the new address to the contact
+                address.Contact = contact;
+                context.SaveChanges();
+            }
+            Console.Write("Press Enter...");
+            Console.ReadLine();
+        }
+
+    
+
+
+
+
     }
 }
